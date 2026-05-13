@@ -1,0 +1,6 @@
+{
+  "name": "sportset-backend",
+  "version": "1.0.0",
+  "description": "Wearable fitness data aggregation",
+  "main": "src/backend/main.py"
+}

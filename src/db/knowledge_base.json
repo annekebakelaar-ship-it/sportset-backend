@@ -1,0 +1,784 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0",
+    "description": "YouCaps Knowledge Base — supplement-interacties, contra-indicaties en allergie-informatie",
+    "created_at": "2026-05-08T21:00:00+02:00",
+    "updated_at": "2026-05-08T21:00:00+02:00",
+    "checksum": null,
+    "source_primary": "Handmatig gecureerd door YouCaps — bronnen per interactie vermeld",
+    "intended_use": "Informatief. Geen vervanging voor advies van arts of apotheker.",
+    "notes": [
+      "Dit bestand wordt beheerd via backend/utils/file_utils.py (atomic_write_json).",
+      "Directe bewerking is toegestaan in development; gebruik atomic_write_json in productie.",
+      "Bij schema-wijzigingen: verhoog schema_version en voeg migratie toe in backend/db/migrations/.",
+      "evidence_level volgt GRADE-systematiek: A=hoog, B=matig, C=laag, D=expert-opinie.",
+      "severity: low | medium | high | critical"
+    ]
+  },
+  "schema": {
+    "version": "1.0.0",
+    "interactions_fields": [
+      "id", "supplement_key", "supplement_aliases",
+      "target", "target_type", "target_aliases",
+      "severity", "mechanism", "clinical_effect",
+      "management", "evidence_level", "sources",
+      "created_at", "verified"
+    ],
+    "allergens_fields": [
+      "id", "allergen_key", "aliases",
+      "supplements_containing", "severity_if_allergic",
+      "cross_reactivity", "sources"
+    ]
+  },
+  "interactions": [
+    {
+      "id": "INT-001",
+      "supplement_key": "melatonine",
+      "supplement_aliases": ["melatonin", "melatonine"],
+      "target": "Warfarine",
+      "target_type": "medication",
+      "target_aliases": ["warfarin", "coumadin", "marcoumar"],
+      "severity": "medium",
+      "mechanism": "Melatonine kan de anticoagulante werking van warfarine versterken via onbekend mechanisme; mogelijk via CYP1A2-remming.",
+      "clinical_effect": "Verhoogde INR-waarden; verhoogd bloedingsrisico.",
+      "management": "Monitor INR bij gelijktijdig gebruik. Raadpleeg arts of apotheker.",
+      "evidence_level": "C",
+      "sources": [
+        "Herxheimer A, Petrie KJ. Cochrane Database Syst Rev. 2002",
+        "Nederlandse Kennisbank Integratieve Geneeskunde (NKIM)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-002",
+      "supplement_key": "melatonine",
+      "supplement_aliases": ["melatonin", "melatonine"],
+      "target": "Fluvoxamine",
+      "target_type": "medication",
+      "target_aliases": ["luvox", "fevarin"],
+      "severity": "high",
+      "mechanism": "Fluvoxamine remt CYP1A2 sterk, het enzym dat melatonine afbreekt. Dit verhoogt de melatoninespiegel 12-17 voudig.",
+      "clinical_effect": "Sterke sedatie, excessieve slaperigheid overdag, mogelijke psychomotorische stoornissen.",
+      "management": "Combinatie vermijden. Indien toch gecombineerd: sterk verlaagde melatonine-dosis en strikte monitoring.",
+      "evidence_level": "B",
+      "sources": [
+        "Skene DJ et al. Br J Clin Pharmacol. 2003;56(1):88-95",
+        "G-Standaard interactiemodule (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-003",
+      "supplement_key": "melatonine",
+      "supplement_aliases": ["melatonin", "melatonine"],
+      "target": "Benzodiazepinen",
+      "target_type": "medication_class",
+      "target_aliases": ["diazepam", "oxazepam", "lorazepam", "temazepam", "nitrazepam", "triazolam"],
+      "severity": "medium",
+      "mechanism": "Additief centraal dempend effect op het CNS.",
+      "clinical_effect": "Overmatige slaperigheid, verminderd reactievermogen, verhoogd valrisico bij ouderen.",
+      "management": "Wees voorzichtig bij gelijktijdig gebruik; afraden bij ouderen en bij bestuurders.",
+      "evidence_level": "C",
+      "sources": [
+        "NKIM interactiedatabase",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-004",
+      "supplement_key": "melatonine",
+      "supplement_aliases": ["melatonin", "melatonine"],
+      "target": "Immunosuppressiva",
+      "target_type": "medication_class",
+      "target_aliases": ["ciclosporine", "tacrolimus", "azathioprine", "mycofenolaatmofetil"],
+      "severity": "medium",
+      "mechanism": "Melatonine heeft immunomodulerende eigenschappen die de werking van immunosuppressiva kunnen beïnvloeden.",
+      "clinical_effect": "Verminderde immuunsuppressie; mogelijk verhoogd afstotingsrisico bij transplantatiepatiënten.",
+      "management": "Gebruik bij transplantatiepatiënten alleen onder directe medische supervisie.",
+      "evidence_level": "C",
+      "sources": [
+        "Informed opinion — onvoldoende klinische data; verifieer met transplantatie-specialist"
+      ],
+      "created_at": "2026-05-08",
+      "verified": false
+    },
+    {
+      "id": "INT-005",
+      "supplement_key": "vitamine_k2",
+      "supplement_aliases": ["vitamine k2", "vitamin k2", "menaquinone", "mk-7", "mk-4"],
+      "target": "Warfarine",
+      "target_type": "medication",
+      "target_aliases": ["warfarin", "coumadin", "acenocoumarol", "fenprocoumon", "sintrom"],
+      "severity": "high",
+      "mechanism": "Vitamine K2 is een cofactor voor stollingsfactoren II, VII, IX en X. Het antagoniseert direct het werkingsmechanisme van vitamine K-antagonisten (VKA's).",
+      "clinical_effect": "Significant verlaagde INR-waarden; risico op trombo-embolische complicaties bij te lage anticoagulantie.",
+      "management": "Combinatie sterk afraden. Indien vitamine K2 noodzakelijk: frequente INR-monitoring en dosisaanpassing door arts.",
+      "evidence_level": "A",
+      "sources": [
+        "Schurgers LJ et al. Blood. 2007;109(7):2823-2831",
+        "G-Standaard interactiemodule (NL)",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-006",
+      "supplement_key": "vitamine_k2",
+      "supplement_aliases": ["vitamine k2", "vitamin k2", "menaquinone", "mk-7", "mk-4"],
+      "target": "Acenocoumarol",
+      "target_type": "medication",
+      "target_aliases": ["sintrom", "acenocoumarol"],
+      "severity": "high",
+      "mechanism": "Zelfde mechanisme als INT-005 (VKA-antagonisme via vitamine K-cofactor).",
+      "clinical_effect": "Significant verlaagde INR-waarden bij gebruik van acenocoumarol (meest gebruikte VKA in Nederland).",
+      "management": "Combinatie sterk afraden; INR frequenter monitoren indien toch gebruikt.",
+      "evidence_level": "A",
+      "sources": [
+        "G-Standaard interactiemodule (NL)",
+        "Trombosedienst NL richtlijnen"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-007",
+      "supplement_key": "sint_janskruid",
+      "supplement_aliases": ["sint-janskruid", "hypericum perforatum", "st john's wort", "johanniskraut"],
+      "target": "SSRI antidepressiva",
+      "target_type": "medication_class",
+      "target_aliases": ["fluoxetine", "sertraline", "paroxetine", "citalopram", "escitalopram", "fluvoxamine"],
+      "severity": "high",
+      "mechanism": "Sint-janskruid heeft serotonerg werkende bestanddelen (hyperforine). Combinatie met SSRI's verhoogt het serotonine-niveau gevaarlijk.",
+      "clinical_effect": "Serotoninesyndroom: hyperthermie, agitatie, tremor, myoklonieën, autonome instabiliteit. Kan levensgevaarlijk zijn.",
+      "management": "Absolute contra-indicatie. Combinatie verbieden.",
+      "evidence_level": "A",
+      "sources": [
+        "Barbenel DM et al. Lancet. 2000;355(9218):1912",
+        "G-Standaard interactiemodule (NL)",
+        "LAREB (Bijwerkingencentrum NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-008",
+      "supplement_key": "sint_janskruid",
+      "supplement_aliases": ["sint-janskruid", "hypericum perforatum", "st john's wort"],
+      "target": "Orale anticonceptiva",
+      "target_type": "medication_class",
+      "target_aliases": ["de pil", "ethinylestradiol", "levonorgestrel", "desogestrel", "drospirenon"],
+      "severity": "high",
+      "mechanism": "Sint-janskruid induceert CYP3A4 en P-glycoproteine sterk, waardoor de plasmaspiegel van oestrogenen en progestagenen significant daalt.",
+      "clinical_effect": "Verminderde anticonceptieve werking; risico op ongewenste zwangerschap.",
+      "management": "Combinatie vermijden. Bij gebruik: overstappen op niet-hormonale anticonceptie of dubbele anticonceptie.",
+      "evidence_level": "A",
+      "sources": [
+        "Piscitelli SC et al. Lancet. 2000;355(9203):547-548",
+        "LAREB (Bijwerkingencentrum NL)",
+        "G-Standaard"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-009",
+      "supplement_key": "sint_janskruid",
+      "supplement_aliases": ["sint-janskruid", "hypericum perforatum", "st john's wort"],
+      "target": "Ciclosporine",
+      "target_type": "medication",
+      "target_aliases": ["sandimmune", "neoral", "cyclosporin"],
+      "severity": "critical",
+      "mechanism": "Sint-janskruid induceert CYP3A4 sterk; ciclosporine is een CYP3A4-substraat. Plasmaspiegel ciclosporine daalt 30-70%.",
+      "clinical_effect": "Acuut transplantaat-afstotingsrisico door te lage ciclosporinespiegel. Meerdere fatale gevallen gerapporteerd.",
+      "management": "Absolute contra-indicatie bij transplantatiepatiënten. Directe medische interventie noodzakelijk.",
+      "evidence_level": "A",
+      "sources": [
+        "Ruschitzka F et al. Lancet. 2000;355(9203):548-549",
+        "EMA (European Medicines Agency) — beveiligingswaarschuwing sint-janskruid"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-010",
+      "supplement_key": "sint_janskruid",
+      "supplement_aliases": ["sint-janskruid", "hypericum perforatum", "st john's wort"],
+      "target": "Antiretrovirale middelen",
+      "target_type": "medication_class",
+      "target_aliases": ["indinavir", "ritonavir", "lopinavir", "efavirenz", "nevirapine"],
+      "severity": "critical",
+      "mechanism": "CYP3A4-inductie verlaagt plasmaspiegel van HIV-proteaseremmers en NNRTI's met 30-60%.",
+      "clinical_effect": "Onvoldoende HIV-suppressie; risico op virale resistentie-ontwikkeling.",
+      "management": "Absolute contra-indicatie bij HIV-behandeling.",
+      "evidence_level": "A",
+      "sources": [
+        "Piscitelli SC et al. Lancet. 2000;355(9203):547-548",
+        "EMA — beveiligingswaarschuwing"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-011",
+      "supplement_key": "magnesium",
+      "supplement_aliases": ["magnesium", "magnesiumcitraat", "magnesiumoxide", "magnesiumglycinaat", "magnesiummalaat"],
+      "target": "Tetracycline antibiotica",
+      "target_type": "medication_class",
+      "target_aliases": ["tetracycline", "doxycycline", "minocycline", "lymecycline"],
+      "severity": "medium",
+      "mechanism": "Magnesium-ionen cheleren tetracyclines in het maagdarmkanaal, waardoor een onoplosbaar complex ontstaat dat niet wordt geabsorbeerd.",
+      "clinical_effect": "Verminderde absorptie van tetracycline (tot 50-80%); verminderde antibiotische werking.",
+      "management": "Neem tetracycline minimaal 2-3 uur vóór of 4-6 uur na magnesium-supplement.",
+      "evidence_level": "B",
+      "sources": [
+        "Farmacotherapeutisch Kompas (NL)",
+        "G-Standaard interactiemodule (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-012",
+      "supplement_key": "magnesium",
+      "supplement_aliases": ["magnesium", "magnesiumcitraat", "magnesiumoxide", "magnesiumglycinaat"],
+      "target": "Bisfosfonaten",
+      "target_type": "medication_class",
+      "target_aliases": ["alendronaat", "risedronaat", "ibandronaat", "zoledronaat", "fosamax", "actonel"],
+      "severity": "medium",
+      "mechanism": "Magnesium-ionen reduceren de intestinale absorptie van bisfosfonaten.",
+      "clinical_effect": "Verminderde werkzaamheid van osteoporose-behandeling.",
+      "management": "Neem bisfosfonaten op nuchtere maag; magnesium minstens 2 uur later.",
+      "evidence_level": "B",
+      "sources": [
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-013",
+      "supplement_key": "magnesium",
+      "supplement_aliases": ["magnesium", "magnesiumcitraat"],
+      "target": "Fluoroquinolonen",
+      "target_type": "medication_class",
+      "target_aliases": ["ciprofloxacine", "levofloxacine", "moxifloxacine", "ofloxacine"],
+      "severity": "medium",
+      "mechanism": "Chelaatvorming in het maagdarmkanaal vermindert absorptie van fluoroquinolonen.",
+      "clinical_effect": "Verminderde plasmaspiegel fluoroquinolon; risico op antibioticum-falen.",
+      "management": "Neem fluoroquinolon minimaal 2 uur vóór of 6 uur na magnesium-supplement.",
+      "evidence_level": "B",
+      "sources": [
+        "G-Standaard interactiemodule (NL)",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-014",
+      "supplement_key": "magnesium",
+      "supplement_aliases": ["magnesium"],
+      "target": "Nierfunctiestoornissen",
+      "target_type": "condition",
+      "target_aliases": ["chronische nierziekte", "CKD", "nierinsufficiëntie", "nierfalen", "dialyse"],
+      "severity": "high",
+      "mechanism": "Magnesium wordt primair renaal uitgescheiden. Bij verminderde nierfunctie (eGFR <30 ml/min) accumuleert magnesium.",
+      "clinical_effect": "Hypermagnesiëmie: spierzwakte, bradycardie, ademhalingsdepressie, bij ernstige overdosering hartstilstand.",
+      "management": "Gebruik magnesium-supplementen niet bij eGFR <30 zonder medisch toezicht. Frequente serumspiegelbepaling.",
+      "evidence_level": "A",
+      "sources": [
+        "KDIGO (Kidney Disease Improving Global Outcomes) richtlijnen",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-015",
+      "supplement_key": "ijzer",
+      "supplement_aliases": ["ijzer", "ferrous sulfate", "ijzersulfaat", "ijzerbisglycinaat", "ferro"],
+      "target": "Levothyroxine",
+      "target_type": "medication",
+      "target_aliases": ["thyrax", "euthyrox", "l-thyroxine", "schildklierhormoon"],
+      "severity": "medium",
+      "mechanism": "IJzer vormt een onoplosbaar chelaatcomplex met levothyroxine in het maagdarmkanaal.",
+      "clinical_effect": "Verminderde absorptie van schildklierhormoon (25-65%); hypothyreoïde klachten, vermoeidheid, gewichtstoename.",
+      "management": "Neem levothyroxine minimaal 4 uur vóór of na ijzer-supplement. Op nuchtere maag.",
+      "evidence_level": "B",
+      "sources": [
+        "Campbell NR et al. Ann Intern Med. 1992;117(12):1010-1013",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-016",
+      "supplement_key": "ijzer",
+      "supplement_aliases": ["ijzer", "ferrous sulfate", "ijzersulfaat"],
+      "target": "Fluoroquinolonen",
+      "target_type": "medication_class",
+      "target_aliases": ["ciprofloxacine", "levofloxacine", "moxifloxacine"],
+      "severity": "medium",
+      "mechanism": "IJzer-ionen cheleren fluoroquinolonen in het maagdarmkanaal.",
+      "clinical_effect": "Verminderde absorptie en plasmaspiegel van fluoroquinolon.",
+      "management": "Neem fluoroquinolon minimaal 2 uur vóór of 6 uur na ijzer-supplement.",
+      "evidence_level": "B",
+      "sources": [
+        "G-Standaard interactiemodule (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-017",
+      "supplement_key": "vitamine_d",
+      "supplement_aliases": ["vitamine d", "vitamine d3", "cholecalciferol", "ergocalciferol", "vitamine d2"],
+      "target": "Thiazidediuretica",
+      "target_type": "medication_class",
+      "target_aliases": ["hydrochloorthiazide", "chloortalidone", "indapamide"],
+      "severity": "low",
+      "mechanism": "Thiazidediuretica verhogen renale calcium-reabsorptie. In combinatie met hoge vitamine D-doses kan dit leiden tot hypercalciëmie.",
+      "clinical_effect": "Hypercalciëmie bij hoge vitamine D-doses: misselijkheid, vermoeidheid, polyurie, niersteenvorming.",
+      "management": "Voorzichtigheid bij hoge doses vitamine D (>2000 IU/dag). Calcium en PTH monitoren.",
+      "evidence_level": "C",
+      "sources": [
+        "Farmacotherapeutisch Kompas (NL)",
+        "NIH ODS — Vitamin D Fact Sheet"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-018",
+      "supplement_key": "omega_3",
+      "supplement_aliases": ["omega-3", "visolie", "fish oil", "epa", "dha", "omega 3 vetzuren"],
+      "target": "Warfarine",
+      "target_type": "medication",
+      "target_aliases": ["warfarin", "coumadin", "bloedverdunners", "anticoagulantia", "acenocoumarol", "fenprocoumon"],
+      "severity": "medium",
+      "mechanism": "Omega-3 vetzuren (met name EPA) remmen de trombocytenaggregatie en kunnen de synthese van stollingsfactoren beïnvloeden.",
+      "clinical_effect": "Verhoogde bloedingstijd; bij hoge doses (>3g/dag) mogelijk verhoogde INR bij VKA-gebruik.",
+      "management": "Monitor INR frequenter bij gebruik van >1g/dag visolie en anticoagulantia. Informeer arts.",
+      "evidence_level": "B",
+      "sources": [
+        "Harris WS. Expert Rev Cardiovasc Ther. 2007;5(1):19-28",
+        "G-Standaard interactiemodule (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-019",
+      "supplement_key": "omega_3",
+      "supplement_aliases": ["omega-3", "visolie", "fish oil", "epa", "dha"],
+      "target": "Aspirine",
+      "target_type": "medication",
+      "target_aliases": ["acetylsalicylzuur", "aspirin", "carbasalaatcalcium", "ascal"],
+      "severity": "low",
+      "mechanism": "Additief trombocytenaggregatieremmend effect.",
+      "clinical_effect": "Licht verhoogd bloedingsrisico bij hoge doses omega-3.",
+      "management": "Bij normale doses (<1g/dag) geen klinisch relevante interactie verwacht. Informeer arts bij hoge doses.",
+      "evidence_level": "C",
+      "sources": [
+        "NIH ODS — Omega-3 Fatty Acids Fact Sheet"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-020",
+      "supplement_key": "omega_3",
+      "supplement_aliases": ["omega-3", "visolie", "fish oil"],
+      "target": "Bloedstollingsstoornissen",
+      "target_type": "condition",
+      "target_aliases": ["hemofilie", "von willebrand ziekte", "trombocytopenie", "bloedingsstoornis"],
+      "severity": "high",
+      "mechanism": "Omega-3 vetzuren remmen trombocytenaggregatie; bij bestaande stollingsstoornissen is het risico op ernstige bloeding verhoogd.",
+      "clinical_effect": "Verhoogd risico op ongecontroleerde bloedingen.",
+      "management": "Vermijd omega-3 supplementen bij bekende stollingsstoornissen zonder medisch toezicht.",
+      "evidence_level": "C",
+      "sources": [
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-021",
+      "supplement_key": "vitamine_c",
+      "supplement_aliases": ["vitamine c", "ascorbinezuur", "ascorbic acid", "vitamin c"],
+      "target": "Hemochromatose",
+      "target_type": "condition",
+      "target_aliases": ["ijzerstapelingsziekte", "erfelijke hemochromatose", "ijzeroverload"],
+      "severity": "high",
+      "mechanism": "Vitamine C verhoogt de intestinale non-heem-ijzerabsorptie significant (2-4 voudig) door reductie van Fe3+ naar Fe2+.",
+      "clinical_effect": "Verergering van ijzerstapeling; weefselschade aan lever, hart, alvleesklier.",
+      "management": "Vermijd hoge doses vitamine C (>200mg/dag) bij hemochromatose.",
+      "evidence_level": "B",
+      "sources": [
+        "Toth I, Bridges KR. J Nutr. 1995;125(3):609-617",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-022",
+      "supplement_key": "vitamine_c",
+      "supplement_aliases": ["vitamine c", "ascorbinezuur", "vitamin c"],
+      "target": "Oxalaatstenen",
+      "target_type": "condition",
+      "target_aliases": ["nierstenen", "urolithiasis", "calciumoxalaatstenen", "hyperoxalurie"],
+      "severity": "medium",
+      "mechanism": "Hoge doses vitamine C (>500mg/dag) worden deels omgezet naar oxalaat via niet-enzymatische degradatie.",
+      "clinical_effect": "Verhoogde urinaire oxalaat-uitscheiding; verhoogd risico op calciumoxalaat-nierstenen bij gevoelige personen.",
+      "management": "Beperk tot <500mg/dag bij niersteenanamnese. Voldoende vochtinname.",
+      "evidence_level": "B",
+      "sources": [
+        "Massey LK et al. J Nutr. 2005;135(7):1673-1677",
+        "NIH ODS — Vitamin C Fact Sheet"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-023",
+      "supplement_key": "ginkgo_biloba",
+      "supplement_aliases": ["ginkgo", "ginkgo biloba", "ginkgo biloba extract", "egb 761"],
+      "target": "Warfarine",
+      "target_type": "medication",
+      "target_aliases": ["warfarin", "acenocoumarol", "bloedverdunners", "anticoagulantia"],
+      "severity": "high",
+      "mechanism": "Ginkgo remt de trombocytenaggregatie (PAF-antagonisme) en kan CYP2C9 remmen, wat warfarine-metabolisme vertraagt.",
+      "clinical_effect": "Verhoogd bloedingsrisico; verhoogde INR mogelijk.",
+      "management": "Combinatie sterk afraden bij anticoagulantia. Informeer behandelend arts.",
+      "evidence_level": "B",
+      "sources": [
+        "Rosenblatt M, Mindel J. N Engl J Med. 1997;336(15):1108",
+        "NIH ODS — Ginkgo Fact Sheet",
+        "G-Standaard"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-024",
+      "supplement_key": "ginkgo_biloba",
+      "supplement_aliases": ["ginkgo", "ginkgo biloba"],
+      "target": "Aspirine",
+      "target_type": "medication",
+      "target_aliases": ["acetylsalicylzuur", "aspirin", "carbasalaatcalcium"],
+      "severity": "medium",
+      "mechanism": "Additief trombocytenaggregatieremmend effect van ginkgo en aspirine.",
+      "clinical_effect": "Verhoogd bloedingsrisico, inclusief intracraniële bloeding.",
+      "management": "Wees voorzichtig met combinatie; informeer arts.",
+      "evidence_level": "C",
+      "sources": [
+        "Matthews MK Jr. Neurology. 1998;50(6):1933-1934"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-025",
+      "supplement_key": "valeriaan",
+      "supplement_aliases": ["valeriaan", "valeriana officinalis", "valerian", "baldrian"],
+      "target": "Benzodiazepinen",
+      "target_type": "medication_class",
+      "target_aliases": ["diazepam", "oxazepam", "lorazepam", "temazepam", "alprazolam"],
+      "severity": "medium",
+      "mechanism": "Valeriaan heeft GABAerge werking (GABA-A-receptoragonisme); additief sederend effect met benzodiazepinen.",
+      "clinical_effect": "Overmatige sedatie, cognitieve stoornissen, verhoogd valrisico.",
+      "management": "Combinatie afraden, met name bij ouderen.",
+      "evidence_level": "C",
+      "sources": [
+        "NKIM interactiedatabase",
+        "NIH ODS — Valerian Fact Sheet"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-026",
+      "supplement_key": "knoflook",
+      "supplement_aliases": ["knoflook", "allium sativum", "garlic", "knoflookextract"],
+      "target": "Warfarine",
+      "target_type": "medication",
+      "target_aliases": ["warfarin", "acenocoumarol", "bloedverdunners"],
+      "severity": "medium",
+      "mechanism": "Knoflook remt trombocytenaggregatie via TXA2-remming en kan CYP2C9 licht remmen.",
+      "clinical_effect": "Verhoogd bloedingsrisico; licht verhoogde INR mogelijk bij hoge doses.",
+      "management": "Monitor INR bij gebruik van knoflooksupplementen (>600mg/dag) en anticoagulantia.",
+      "evidence_level": "C",
+      "sources": [
+        "Sunter W. Pharm J. 1991;246:722",
+        "NIH ODS — Garlic Fact Sheet"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-027",
+      "supplement_key": "ashwagandha",
+      "supplement_aliases": ["ashwagandha", "withania somnifera", "indiase ginseng"],
+      "target": "Schildkliermedicatie",
+      "target_type": "medication_class",
+      "target_aliases": ["levothyroxine", "thyrax", "euthyrox", "propylthiouracil", "thiamazol"],
+      "severity": "medium",
+      "mechanism": "Ashwagandha kan de schildklierhormoonspiegels verhogen via stimulatie van de hypofyse-schildklier-as.",
+      "clinical_effect": "Mogelijke interactie met schildkliermedicatie: bij hypothyreoïdie-behandeling kan dosisaanpassing nodig zijn.",
+      "management": "Monitor schildklierfunctie (TSH, T3, T4) bij gelijktijdig gebruik.",
+      "evidence_level": "C",
+      "sources": [
+        "Panda S, Kar A. J Pharm Pharmacol. 1998;50(9):1065-1068",
+        "Informed opinion — beperkte klinische data"
+      ],
+      "created_at": "2026-05-08",
+      "verified": false
+    },
+    {
+      "id": "INT-028",
+      "supplement_key": "vitamine_b6",
+      "supplement_aliases": ["vitamine b6", "pyridoxine", "vitamin b6"],
+      "target": "Levodopa",
+      "target_type": "medication",
+      "target_aliases": ["levodopa", "l-dopa", "sinemet", "madopar"],
+      "severity": "high",
+      "mechanism": "Vitamine B6 is een cofactor voor DOPA-decarboxylase. Het versnelt de perifere omzetting van levodopa naar dopamine, waardoor minder levodopa de hersenen bereikt.",
+      "clinical_effect": "Verminderde werkzaamheid van levodopa bij Parkinson; verergering van Parkinson-symptomen.",
+      "management": "Hoge doses vitamine B6 (>10mg/dag) vermijden bij levodopa-behandeling (zonder perifere decarboxylaseremmer).",
+      "evidence_level": "A",
+      "sources": [
+        "Yahr MD et al. Arch Neurol. 1969;21(4):343-354",
+        "G-Standaard interactiemodule (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-029",
+      "supplement_key": "calcium",
+      "supplement_aliases": ["calcium", "calciumcarbonaat", "calciumcitraat", "kalk"],
+      "target": "Levothyroxine",
+      "target_type": "medication",
+      "target_aliases": ["thyrax", "euthyrox", "l-thyroxine"],
+      "severity": "medium",
+      "mechanism": "Calcium-ionen binden aan levothyroxine in het maagdarmkanaal; vormen onoplosbaar complex.",
+      "clinical_effect": "Verminderde absorptie van schildklierhormoon.",
+      "management": "Neem levothyroxine op nuchtere maag, minimaal 4 uur vóór calcium-supplement.",
+      "evidence_level": "B",
+      "sources": [
+        "Singh N et al. Ann Intern Med. 2000;132(7):517-520",
+        "Farmacotherapeutisch Kompas (NL)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "INT-030",
+      "supplement_key": "omega_3",
+      "supplement_aliases": ["omega-3", "visolie", "sterke visolie", "fish oil"],
+      "target": "Gepland chirurgisch ingrijpen",
+      "target_type": "condition",
+      "target_aliases": ["operatie", "chirurgie", "ingreep", "operatief"],
+      "severity": "medium",
+      "mechanism": "Omega-3 vetzuren remmen trombocytenaggregatie; verhoogd perioperatief bloedingsrisico.",
+      "clinical_effect": "Verhoogd bloedingsrisico tijdens en na chirurgische ingreep.",
+      "management": "Stop omega-3 supplementen minimaal 2 weken vóór een geplande operatie.",
+      "evidence_level": "B",
+      "sources": [
+        "Farmacotherapeutisch Kompas (NL)",
+        "Anesthesist NL richtlijnen"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    }
+  ],
+  "allergens": [
+    {
+      "id": "ALG-001",
+      "allergen_key": "vis",
+      "aliases": ["vis", "visallergie", "fish", "fish allergy", "vis allergie"],
+      "supplements_containing": [
+        "visolie",
+        "sterke visolie",
+        "omega-3 visolie",
+        "fish oil",
+        "krill oil",
+        "krillolie",
+        "levertraan"
+      ],
+      "severity_if_allergic": "critical",
+      "clinical_effect": "Anafylaxie, urticaria, angio-oedeem, bronchospasmen. Reacties kunnen optreden binnen minuten.",
+      "management": "Absolute contra-indicatie. Verwijder alle visproducten. Draag altijd een adrenaline auto-injector (EpiPen) bij ernstige visallergie.",
+      "cross_reactivity": [
+        "schaaldieren (soms, maar niet altijd)",
+        "krillolie"
+      ],
+      "sources": [
+        "NVKA (Nederlandse Vereniging voor Kindergeneeskunde Allergologie)",
+        "EAACI (European Academy of Allergy and Clinical Immunology)"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "ALG-002",
+      "allergen_key": "schaaldieren",
+      "aliases": ["schaaldieren", "crustaceeën", "shellfish", "garnalen", "kreeft", "krab"],
+      "supplements_containing": [
+        "krillolie",
+        "glucosamine (schelpdierbron)",
+        "chondroïtine (soms schelpdierbron)"
+      ],
+      "severity_if_allergic": "critical",
+      "clinical_effect": "Anafylaxie mogelijk. Ernstiger dan bij andere voedselallergieën.",
+      "management": "Controleer bronvermelding van glucosamine en chondroïtine-supplementen zorgvuldig.",
+      "cross_reactivity": [
+        "vis (soms)",
+        "insecten (soms)"
+      ],
+      "sources": [
+        "EAACI Allergy Guidelines"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "ALG-003",
+      "allergen_key": "soja",
+      "aliases": ["soja", "soy", "soybean", "soja-allergie"],
+      "supplements_containing": [
+        "soja lecithine (in veel supplementen als emulgator)",
+        "soja isoflavonen",
+        "plantaardige eiwitpoeders"
+      ],
+      "severity_if_allergic": "medium",
+      "clinical_effect": "Urticaria, angioedeem, gastro-intestinale klachten; anafylaxie is zeldzaam bij soja.",
+      "management": "Controleer ingredient-label op 'soja lecithine' of 'lecithine (soja)'.",
+      "cross_reactivity": [
+        "andere peulvruchten (soms)",
+        "tarwe (soms)"
+      ],
+      "sources": [
+        "EAACI Allergy Guidelines",
+        "Voedsel Allergie Platform NL"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "ALG-004",
+      "allergen_key": "gluten",
+      "aliases": ["gluten", "coeliakie", "tarwe allergie", "glutenintolerantie"],
+      "supplements_containing": [
+        "sommige multivitaminen (vulstoffen op tarwebasis)",
+        "brouwersgist",
+        "tarwekiemolie"
+      ],
+      "severity_if_allergic": "high",
+      "clinical_effect": "Bij coeliakie: darmschade, malabsorptie. Bij tarweallergie: anafylaxie mogelijk.",
+      "management": "Kies supplementen met 'glutenvrij' certificering.",
+      "cross_reactivity": [
+        "rogge",
+        "gerst",
+        "haver (soms)"
+      ],
+      "sources": [
+        "Coeliakie Vereniging Nederland",
+        "EAACI"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    },
+    {
+      "id": "ALG-005",
+      "allergen_key": "melk",
+      "aliases": ["melk", "lactose", "koemelk allergie", "melkallergie", "caseïne"],
+      "supplements_containing": [
+        "whey protein",
+        "caseïne eiwit",
+        "lactobacillus probiotica (soms gekweekt op melk)"
+      ],
+      "severity_if_allergic": "medium",
+      "clinical_effect": "Urticaria, eczeem, gastro-intestinale klachten; bij jonge kinderen soms ernst.",
+      "management": "Kies plantaardige eiwitten; controleer 'bevat melk' op etiket.",
+      "cross_reactivity": [
+        "geiten- en schapenmelk (sterk)"
+      ],
+      "sources": [
+        "EAACI",
+        "Voedsel Allergie Platform NL"
+      ],
+      "created_at": "2026-05-08",
+      "verified": true
+    }
+  ],
+  "supplement_keys": {
+    "description": "Mapping van vrije-tekst supplementnamen naar genormaliseerde sleutels voor gebruik in interactiecheck",
+    "mappings": [
+      {
+        "key": "melatonine",
+        "patterns": ["melatonine", "melatonin", "melatonine 0.29mg", "melatonine 1mg", "melatonine 5mg"]
+      },
+      {
+        "key": "vitamine_k2",
+        "patterns": ["vitamine k2", "vitamin k2", "vit k2", "menaquinone", "mk-7", "mk7", "mk-4", "mk4"]
+      },
+      {
+        "key": "sint_janskruid",
+        "patterns": ["sint-janskruid", "sint janskruid", "hypericum", "hypericum perforatum", "st john's wort", "johanniskraut"]
+      },
+      {
+        "key": "magnesium",
+        "patterns": ["magnesium", "magnesiumcitraat", "magnesium citraat", "magnesiumoxide", "magnesiumglycinaat", "magnesiummalaat", "magnesiumbisglycinaat", "magnesium tauraat"]
+      },
+      {
+        "key": "ijzer",
+        "patterns": ["ijzer", "ferro", "ferrous", "ijzersulfaat", "ferro sulfaat", "ijzerbisglycinaat", "ferrichloride"]
+      },
+      {
+        "key": "vitamine_d",
+        "patterns": ["vitamine d", "vitamine d3", "vit d3", "cholecalciferol", "ergocalciferol", "vitamine d2", "vitamin d"]
+      },
+      {
+        "key": "omega_3",
+        "patterns": ["omega-3", "omega 3", "visolie", "sterke visolie", "fish oil", "omega 3 vetzuren", "epa", "dha", "epa dha", "levertraan"]
+      },
+      {
+        "key": "vitamine_c",
+        "patterns": ["vitamine c", "ascorbinezuur", "ascorbic acid", "vitamin c", "vitamine c 1000mg", "vitamine c 500mg"]
+      },
+      {
+        "key": "ginkgo_biloba",
+        "patterns": ["ginkgo", "ginkgo biloba", "ginkgo extract", "egb 761", "ginkgo biloba extract"]
+      },
+      {
+        "key": "valeriaan",
+        "patterns": ["valeriaan", "valeriana", "valerian", "baldrian", "valeriaan wortel"]
+      },
+      {
+        "key": "knoflook",
+        "patterns": ["knoflook", "allium sativum", "garlic", "knoflookextract", "knoflook capsule"]
+      },
+      {
+        "key": "ashwagandha",
+        "patterns": ["ashwagandha", "withania somnifera", "indiase ginseng", "ashwagandha extract"]
+      },
+      {
+        "key": "vitamine_b6",
+        "patterns": ["vitamine b6", "pyridoxine", "vit b6", "vitamin b6", "pyridoxaal-5-fosfaat", "p5p"]
+      },
+      {
+        "key": "calcium",
+        "patterns": ["calcium", "calciumcarbonaat", "calciumcitraat", "calcium supplement", "kalk"]
+      }
+    ]
+  }
+}

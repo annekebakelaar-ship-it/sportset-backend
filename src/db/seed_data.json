@@ -1,0 +1,166 @@
+[
+    {
+        "id": "kruidvat-melatonine-029",
+        "product_info": {
+            "name": "Melatonine",
+            "brand": "Kruidvat",
+            "dosage": "0.29mg",
+            "type": "Tablet"
+        },
+        "ai_logic": {
+            "optimal_timing": "30-60 minuten voor het slapengaan",
+            "primary_benefit": "Bevordert de slaapbereidheid",
+            "warning": "Niet gebruiken bij auto-immuunziekten zonder overleg."
+        },
+        "ingredients": [
+            { "name": "Melatonine", "amount": "0.29mg" },
+            { "name": "Microkristallijne cellulose", "amount": null }
+        ],
+        "contra_indications": [
+            {
+                "medication_or_condition": "Warfarine",
+                "severity": "medium",
+                "description": "Melatonine kan de anticoagulante werking van warfarine versterken."
+            },
+            {
+                "medication_or_condition": "Fluvoxamine",
+                "severity": "high",
+                "description": "Fluvoxamine verhoogt de melatoninespiegel sterk; combinatie vermijden."
+            },
+            {
+                "medication_or_condition": "Benzodiazepinen",
+                "severity": "medium",
+                "description": "Additief sederend effect; verhoogd risico op overmatige slaperigheid."
+            }
+        ]
+    },
+    {
+        "id": "lucovitaal-vitaminec-1000",
+        "product_info": {
+            "name": "Vitamine C 1000mg",
+            "brand": "Lucovitaal",
+            "dosage": "1 tablet per dag",
+            "type": "tabletten"
+        },
+        "ai_logic": {
+            "optimal_timing": "Bij de maaltijd, bij voorkeur 's ochtends voor optimale opname",
+            "primary_benefit": "Ondersteuning van het immuunsysteem, antioxidant, bijdrage aan normale collageenvorming",
+            "warning": "Niet geschikt voor kinderen onder de 12 jaar. Hoge dosis kan bij gevoelige personen maagklachten veroorzaken."
+        },
+        "ingredients": [
+            { "name": "Vitamine C (ascorbinezuur)", "amount": "1000 mg" },
+            { "name": "Microkristallijne cellulose", "amount": null },
+            { "name": "Hydroxypropylmethylcellulose", "amount": null },
+            { "name": "Magnesiumstearaat", "amount": null },
+            { "name": "Siliciumdioxide", "amount": null }
+        ],
+        "contra_indications": [
+            {
+                "medication_or_condition": "Nierstenen (oxalaatstenen)",
+                "severity": "medium",
+                "description": "Hoge doses vitamine C kunnen het risico op oxalaat-nierstenen verhogen bij gevoelige personen."
+            },
+            {
+                "medication_or_condition": "Hemochromatose (ijzerstapelingsziekte)",
+                "severity": "high",
+                "description": "Vitamine C verhoogt de ijzeropname, wat gevaarlijk kan zijn bij ijzerstapelingsziekten."
+            },
+            {
+                "medication_or_condition": "Bloedverdunners (warfarine)",
+                "severity": "low",
+                "description": "Hoge doses vitamine C kunnen de werking van bloedverdunners beïnvloeden. Overleg met arts bij gebruik."
+            },
+            {
+                "medication_or_condition": "Maagzuurremmers (antacida)",
+                "severity": "low",
+                "description": "Gelijktijdig gebruik kan de opname van vitamine C verminderen."
+            }
+        ]
+    },
+    {
+        "id": "kruidvat-visolie-1000",
+        "product_info": {
+            "name": "Sterke Visolie",
+            "brand": "Kruidvat",
+            "dosage": "1000mg, 1 capsule per dag bij de maaltijd",
+            "type": "Capsules"
+        },
+        "ai_logic": {
+            "optimal_timing": "Bij de maaltijd (bij voorkeur bij een vetrijke maaltijd voor optimale opname)",
+            "primary_benefit": "Ondersteunt hart, hersenen en gewrichten door omega-3 vetzuren (EPA en DHA)",
+            "warning": "Niet innemen bij visallergie. Raadpleeg een arts bij gebruik van bloedverdunners."
+        },
+        "ingredients": [
+            { "name": "Visolie", "amount": "1000mg" },
+            { "name": "Omega-3 vetzuren", "amount": null },
+            { "name": "EPA (eicosapentaeenzuur)", "amount": null },
+            { "name": "DHA (docosahexaeenzuur)", "amount": null }
+        ],
+        "contra_indications": [
+            {
+                "medication_or_condition": "Bloedverdunners (anticoagulantia zoals warfarine, acenocoumarol)",
+                "severity": "high",
+                "description": "Omega-3 vetzuren kunnen het bloedverdunnend effect versterken, waardoor het risico op bloedingen toeneemt."
+            },
+            {
+                "medication_or_condition": "Visallergie",
+                "severity": "high",
+                "description": "Product bevat visolie en is niet geschikt voor mensen met een allergie voor vis."
+            },
+            {
+                "medication_or_condition": "Gepland chirurgisch ingrijpen",
+                "severity": "medium",
+                "description": "Stop gebruik minimaal 2 weken voor een operatie vanwege verhoogd bloedingsrisico."
+            },
+            {
+                "medication_or_condition": "Bloedingsstoornissen",
+                "severity": "medium",
+                "description": "Omega-3 kan de bloedstolling beïnvloeden bij bestaande bloedingsproblemen."
+            }
+        ]
+    },
+    {
+        "id": "kruidvat-magnesiumcitraat-200",
+        "product_info": {
+            "name": "Magnesium Citraat",
+            "brand": "Kruidvat",
+            "dosage": "1 tablet per dag",
+            "type": "tablet"
+        },
+        "ai_logic": {
+            "optimal_timing": "Bij voorkeur 's avonds innemen, magnesium kan ontspannend werken en de slaapkwaliteit bevorderen",
+            "primary_benefit": "Ondersteunt spier- en zenuwfunctie, draagt bij aan vermindering van vermoeidheid",
+            "warning": "Bij nierproblemen eerst arts raadplegen"
+        },
+        "ingredients": [
+            { "name": "Magnesiumcitraat", "amount": "200mg magnesium per tablet" }
+        ],
+        "contra_indications": [
+            {
+                "medication_or_condition": "Nierfunctiestoornissen",
+                "severity": "high",
+                "description": "Magnesium wordt via de nieren uitgescheiden; bij verminderde nierfunctie kan ophoping optreden"
+            },
+            {
+                "medication_or_condition": "Antibiotica (tetracyclines, quinolonen)",
+                "severity": "medium",
+                "description": "Magnesium kan de opname van bepaalde antibiotica verminderen; neem met minimaal 2-3 uur tussentijd"
+            },
+            {
+                "medication_or_condition": "Bisfosfonaten (osteoporose medicatie)",
+                "severity": "medium",
+                "description": "Magnesium kan de absorptie van bisfosfonaten verminderen"
+            },
+            {
+                "medication_or_condition": "Hartmedicatie (digoxine)",
+                "severity": "medium",
+                "description": "Magnesium kan de werking van digoxine beïnvloeden"
+            },
+            {
+                "medication_or_condition": "Spierverslappers",
+                "severity": "low",
+                "description": "Magnesium kan het effect van spierverslappers versterken"
+            }
+        ]
+    }
+]
