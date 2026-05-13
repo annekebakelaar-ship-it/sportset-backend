@@ -37,9 +37,9 @@ if config.config_file_name is not None:
 # Importeer de Base en alle ORM-modellen
 # (alle modellen MOETEN geïmporteerd zijn zodat Base.metadata ze kent)
 # ---------------------------------------------------------------------------
-from backend.db.database import Base  # noqa: E402
-from backend.models import orm_models  # noqa: F401, E402 — registreert alle tabellen
-from backend.models import onboarding  # noqa: F401, E402 — registreert onboarding_responses
+from src.db.database import Base  # noqa: E402
+from src.models import orm_models  # noqa: F401, E402 — registreert alle tabellen
+from src.models import onboarding  # noqa: F401, E402 — registreert onboarding_responses
 
 target_metadata = Base.metadata
 
@@ -49,7 +49,7 @@ target_metadata = Base.metadata
 def get_url() -> str:
     """Haalt DATABASE_URL op uit omgevingsvariabelen of .env bestand."""
     try:
-        from backend.core.config import settings
+        from src.core.config import settings
         return settings.database_url
     except Exception:
         # Fallback voor als .env niet geladen is

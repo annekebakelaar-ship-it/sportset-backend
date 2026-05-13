@@ -7,7 +7,7 @@ Exporteert get_db() als FastAPI dependency en init_db() voor
 eenmalige tabel-aanmaak + seeding bij opstarten.
 
 Gebruik in FastAPI endpoints:
-    from backend.db.session import get_db
+    from src.db.session import get_db
     from sqlalchemy.orm import Session
 
     @router.get("/supplements")
@@ -21,7 +21,7 @@ from typing import Generator
 
 from sqlalchemy.orm import Session
 
-from backend.db.database import SessionLocal, create_tables
+from src.db.database import SessionLocal, create_tables
 
 
 def get_db() -> Generator[Session, None, None]:
@@ -49,5 +49,5 @@ def init_db(seed: bool = False) -> None:
     """
     create_tables()
     if seed:
-        from backend.db.seed import run_seed
+        from src.db.seed import run_seed
         run_seed()

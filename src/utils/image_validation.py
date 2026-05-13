@@ -36,7 +36,7 @@ from typing import Tuple
 
 from PIL import Image, ImageOps, UnidentifiedImageError
 
-from backend.core.config import settings
+from src.core.config import settings
 
 logger = logging.getLogger(__name__)
 

@@ -6,9 +6,9 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from typing import List
 
-from backend.db.database import get_db
-from backend.services.auth_service import get_current_user
-from backend.models.orm_models import UserORM, UserScanORM
+from src.db.database import get_db
+from src.services.auth_service import get_current_user
+from src.models.orm_models import UserORM, UserScanORM
 
 
 router = APIRouter(prefix="/scans", tags=["scans"])

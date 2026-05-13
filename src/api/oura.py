@@ -11,15 +11,15 @@ from datetime import date, timedelta, datetime, timezone
 from fastapi import APIRouter, Cookie, HTTPException
 from fastapi.responses import RedirectResponse
 
-from backend.core.config import settings
-from backend.schemas.oura import OuraPullResponse, OuraStatusResponse
-from backend.services.oura.client import (
+from src.core.config import settings
+from src.schemas.oura import OuraPullResponse, OuraStatusResponse
+from src.services.oura.client import (
     build_auth_url,
     exchange_code_for_tokens,
     fetch_daily_data,
 )
-from backend.services.oura.mapper import map_oura_to_daily_data_points
-from backend.services.oura.storage import (
+from src.services.oura.mapper import map_oura_to_daily_data_points
+from src.services.oura.storage import (
     get_connection_status,
     get_valid_access_token,
     save_tokens,

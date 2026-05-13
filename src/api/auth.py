@@ -5,13 +5,13 @@ from fastapi import APIRouter, Depends, HTTPException, Header
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
-from backend.core.config import settings
-from backend.db.database import get_db
-from backend.services.auth_service import (
+from src.core.config import settings
+from src.db.database import get_db
+from src.services.auth_service import (
     request_magic_link, verify_magic_link, get_current_user,
     APP_SECRET_KEY, JWT_ALGORITHM, JWT_TTL_DAYS,
 )
-from backend.models.orm_models import UserORM
+from src.models.orm_models import UserORM
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])

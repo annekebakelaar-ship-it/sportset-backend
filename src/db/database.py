@@ -8,7 +8,7 @@ Ondersteunt:
   - PostgreSQL (productie, via DATABASE_URL in .env)
 
 Gebruik:
-    from backend.db.database import get_db, engine
+    from src.db.database import get_db, engine
 
     # In FastAPI endpoint als dependency:
     def my_endpoint(db: Session = Depends(get_db)):
@@ -23,7 +23,7 @@ from typing import Generator
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-from backend.core.config import settings
+from src.core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +92,7 @@ def create_tables() -> None:
 
     In productie: gebruik Alembic-migraties i.p.v. create_all().
     """
-    from backend.models import orm_models, onboarding  # noqa: F401 — importeer zodat tabellen geregistreerd zijn   # noqa: F401 — importeer zodat tabellen geregistreerd zijn
+    from src.models import orm_models, onboarding  # noqa: F401 — importeer zodat tabellen geregistreerd zijn   # noqa: F401 — importeer zodat tabellen geregistreerd zijn
     Base.metadata.create_all(bind=engine)
     logger.info("Database-tabellen aangemaakt (create_all).")
 
@@ -125,7 +125,7 @@ def get_db() -> Generator[Session, None, None]:
 
     Gebruik:
         from fastapi import Depends
-        from backend.db.database import get_db
+        from src.db.database import get_db
 
         @router.get("/supplements")
         def list_supplements(db: Session = Depends(get_db)):

@@ -35,10 +35,10 @@ import anthropic
 from anthropic import APIConnectionError, APIError, APIStatusError, APITimeoutError
 from pydantic import ValidationError
 
-from backend.core.config import settings
-from backend.models.scan_schemas import ScanExtraction
-from backend.utils.image_validation import PreprocessedImage
-from backend.utils.json_parser import (
+from src.core.config import settings
+from src.models.scan_schemas import ScanExtraction
+from src.utils.image_validation import PreprocessedImage
+from src.utils.json_parser import (
     JSONParseError,
     build_retry_prompt,
     parse_and_validate,

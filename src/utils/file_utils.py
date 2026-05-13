@@ -17,7 +17,7 @@ OPLOSSING — Atomair schrijven via tmpfile + os.replace():
      Lezers zien altijd óf de oude óf de nieuwe versie, nooit een tussenstaat.
 
 Gebruik:
-    from backend.utils.file_utils import atomic_write_json, read_json_safe
+    from src.utils.file_utils import atomic_write_json, read_json_safe
 
     data = read_json_safe("backend/db/knowledge_base.json")
     atomic_write_json("backend/db/knowledge_base.json", data)

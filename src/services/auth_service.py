@@ -11,10 +11,10 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, Header
 
-from backend.core.config import settings
-from backend.db.database import get_db
-from backend.models.orm_models import UserORM, MagicLinkTokenORM
-from backend.services.email_service import send_magic_link
+from src.core.config import settings
+from src.db.database import get_db
+from src.models.orm_models import UserORM, MagicLinkTokenORM
+from src.services.email_service import send_magic_link
 
 
 # Config

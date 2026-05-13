@@ -1,4 +1,4 @@
-from backend.schemas.onboarding import FormulaItem
+from src.schemas.onboarding import FormulaItem
 
 # Gespiegeld aan frontend/src/api/mockData.js — niet aanpassen zonder frontend te syncon
 _BASE_FORMULAS: dict[str, list[dict]] = {

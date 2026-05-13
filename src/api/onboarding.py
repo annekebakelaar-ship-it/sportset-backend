@@ -1,16 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.db.database import get_db
-from backend.models.onboarding import OnboardingResponseORM
-from backend.models.orm_models import UserORM
-from backend.schemas.onboarding import (
+from src.db.database import get_db
+from src.models.onboarding import OnboardingResponseORM
+from src.models.orm_models import UserORM
+from src.schemas.onboarding import (
     OnboardingStartRequest,
     OnboardingStartResponse,
     FormulaResponse,
 )
-from backend.services.auth_service import get_current_user
-from backend.services.formula_service import build_formula
+from src.services.auth_service import get_current_user
+from src.services.formula_service import build_formula
 
 
 router = APIRouter(prefix="/onboarding", tags=["onboarding"])

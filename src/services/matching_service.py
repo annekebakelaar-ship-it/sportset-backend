@@ -44,9 +44,9 @@ from rapidfuzz import fuzz
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from backend.core.config import settings
-from backend.models.orm_models import IngredientORM, SupplementORM
-from backend.models.scan_schemas import (
+from src.core.config import settings
+from src.models.orm_models import IngredientORM, SupplementORM
+from src.models.scan_schemas import (
     IngredientMatch,
     ScanExtraction,
     ScanRisk,

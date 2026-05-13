@@ -11,8 +11,8 @@ from datetime import datetime, timezone, timedelta
 
 from supabase import create_client, Client
 
-from backend.core.config import settings
-from backend.services.oura.encryption import encrypt, decrypt
+from src.core.config import settings
+from src.services.oura.encryption import encrypt, decrypt
 
 _TABLE = "wearable_connections"
 
@@ -84,7 +84,7 @@ async def get_valid_access_token(user_id: str) -> str:
         expires_at = expires_at.replace(tzinfo=timezone.utc)
 
     if (expires_at - datetime.now(timezone.utc)).total_seconds() < 300:
-        from backend.services.oura.client import refresh_tokens as _refresh
+        from src.services.oura.client import refresh_tokens as _refresh
         new_tokens = await _refresh(
             decrypt(row["refresh_token_encrypted"]),
             settings.oura_client_id,

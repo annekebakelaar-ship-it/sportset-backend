@@ -9,10 +9,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import routers
-from backend.api.auth import router as auth_router
-from backend.api.scans import router as scans_router
-from backend.api.onboarding import router as onboarding_router
-from backend.api.oura import router as oura_router
+from src.api.auth import router as auth_router
+from src.api.scans import router as scans_router
+from src.api.onboarding import router as onboarding_router
+from src.api.oura import router as oura_router
 
 
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle"""
     logger.info("Youcaps API starting...")
-    from backend.db.database import create_tables
+    from src.db.database import create_tables
     create_tables()
     yield
     logger.info("Youcaps API shutting down...")

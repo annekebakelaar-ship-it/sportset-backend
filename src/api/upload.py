@@ -36,23 +36,23 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
 
-from backend.core.config import settings
-from backend.db.database import SessionLocal, get_db
-from backend.models.orm_models import AuditLogORM, ScanORM
-from backend.models.scan_schemas import (
+from src.core.config import settings
+from src.db.database import SessionLocal, get_db
+from src.models.orm_models import AuditLogORM, ScanORM
+from src.models.scan_schemas import (
     ScanErrorResponse,
     ScanMeta,
     ScanResponse,
 )
-from backend.services.matching_service import analyze as analyze_matches
-from backend.services.vision_service import (
+from src.services.matching_service import analyze as analyze_matches
+from src.services.vision_service import (
     VisionInvalidResponseError,
     VisionServiceError,
     VisionTimeoutError,
     VisionUnavailableError,
     extract_label,
 )
-from backend.utils.image_validation import (
+from src.utils.image_validation import (
     ImageValidationError,
     UploadTooLargeError,
     preprocess_image,
@@ -339,7 +339,7 @@ async def scanner_health() -> dict:
     Snelle status: KB geladen? Anthropic-key aanwezig?
     Schiet GEEN AI-aanroep af — handig voor health-checks zonder kosten.
     """
-    from backend.services.matching_service import KB_INDEX
+    from src.services.matching_service import KB_INDEX
 
     return {
         "kb_loaded": KB_INDEX.is_loaded,

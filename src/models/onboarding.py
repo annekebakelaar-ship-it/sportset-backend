@@ -1,7 +1,7 @@
 import uuid
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
-from backend.db.database import Base
+from src.db.database import Base
 
 
 class OnboardingResponseORM(Base):

@@ -15,8 +15,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session, selectinload
 
-from backend.db.database import get_db
-from backend.models.orm_models import SupplementORM
+from src.db.database import get_db
+from src.models.orm_models import SupplementORM
 
 router = APIRouter(prefix="/supplements", tags=["supplements"])
 

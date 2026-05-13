@@ -1,6 +1,6 @@
 # models package — Pydantic-schema's en SQLAlchemy ORM-modellen
 
-from backend.models.schema import (
+from src.models.schema import (
     ProductInfo,
     AILogic,
     Ingredient,
@@ -14,7 +14,7 @@ from backend.models.schema import (
 )
 
 # ORM-modellen importeren zodat ze geregistreerd zijn in Base.metadata
-from backend.models import orm_models  # noqa: F401
+from src.models import orm_models  # noqa: F401
 
 __all__ = [
     # Pydantic-schema's

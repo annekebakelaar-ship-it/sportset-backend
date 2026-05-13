@@ -27,7 +27,7 @@ import logging
 from typing import List
 
 import anthropic
-from backend.models.schema import (
+from src.models.schema import (
     Supplement,
     SupplementCreate,
     ContraIndication,

@@ -26,8 +26,8 @@ logger = logging.getLogger(__name__)
 
 def run_seed() -> None:
     """Laadt seed_data.json in de database."""
-    from backend.db.database import SessionLocal, create_tables
-    from backend.models.orm_models import (
+    from src.db.database import SessionLocal, create_tables
+    from src.models.orm_models import (
         ContraIndicationORM,
         IngredientORM,
         SupplementORM,

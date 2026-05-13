@@ -5,7 +5,7 @@ Centrale configuratie voor YouCaps via pydantic-settings.
 Laadt automatisch uit omgevingsvariabelen of het .env bestand.
 
 Gebruik:
-    from backend.core.config import settings
+    from src.core.config import settings
     print(settings.anthropic_api_key)
 """
 
