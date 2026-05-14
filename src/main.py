@@ -25,8 +25,9 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle"""
     logger.info("Youcaps API starting...")
-    from src.db.database import create_tables
-    create_tables()
+    # Skip DB creation in Render (read-only filesystem) — use Supabase in production
+    # from src.db.database import create_tables
+    # create_tables()
     yield
     logger.info("Youcaps API shutting down...")
 
