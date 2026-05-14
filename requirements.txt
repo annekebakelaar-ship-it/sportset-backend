@@ -9,7 +9,7 @@
 
 # --- Fase 1: Bestaande dependencies (al in gebruik) ---
 anthropic>=0.40.0,<1.0.0      # Claude AI SDK (sync + async client)
-pydantic>=2.0.0,<3.0.0        # Data validatie & modellen
+pydantic[email]>=2.0.0,<3.0.0        # Data validatie & modellen
 pydantic-settings>=2.0.0,<3.0.0  # Settings management (.env laden)
 requests>=2.31.0,<3.0.0       # HTTP requests (Open Food Facts API, generator.py)
 
