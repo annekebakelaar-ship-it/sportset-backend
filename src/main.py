@@ -1,69 +1,54 @@
 """
-Youcaps API — FastAPI Main Entry Point
+Sportset API — Minimal MVP
 """
-import os
 import logging
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Import routers
-from src.api.auth import router as auth_router
-from src.api.scans import router as scans_router
-from src.api.onboarding import router as onboarding_router
-from src.api.oura import router as oura_router
-from src.api.payment import router as payment_router, webhook_router
-
-
-
-# Logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Startup/shutdown lifecycle"""
-    logger.info("Sportset API starting...")
-    # Database initialization skipped (requires Supabase env vars)
-    # Add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY to Render env to enable
-    yield
-    logger.info("Sportset API shutting down...")
-
-# Create FastAPI app
 app = FastAPI(
     title="Sportset API",
-    description="Wearable data platform with Oura OAuth + Mollie payments",
     version="1.0.0",
-    lifespan=lifespan,
 )
 
-# CORS Middleware
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(auth_router)
-app.include_router(scans_router)
-# Bij de andere include_router calls:
-app.include_router(onboarding_router)
-app.include_router(oura_router)
-app.include_router(payment_router)
-app.include_router(webhook_router)
-
-
 @app.get("/health")
-def health():
-    """Health check endpoint"""
-    return {"status": "ok"}
+async def health():
+    return {"status": "ok", "message": "Sportset API running"}
 
+@app.get("/api/oura/sleep")
+async def mock_sleep():
+    """Mock Oura sleep data"""
+    return {
+        "sleep": [
+            {"date": "2024-05-14", "duration": 7.5, "quality": 85}
+        ]
+    }
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.get("/api/oura/activity")
+async def mock_activity():
+    """Mock Oura activity data"""
+    return {
+        "activity": [
+            {"date": "2024-05-14", "steps": 8234, "calories": 520}
+        ]
+    }
+
+@app.get("/api/oura/heart-rate")
+async def mock_heart_rate():
+    """Mock Oura heart rate data"""
+    return {
+        "heart_rate": [
+            {"date": "2024-05-14", "avg": 68, "max": 95, "min": 52}
+        ]
+    }
