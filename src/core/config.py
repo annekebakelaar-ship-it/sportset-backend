@@ -203,6 +203,14 @@ class Settings(BaseSettings):
         description="Frontend base URL — used for post-OAuth redirect",
     )
 
+    # --- Mollie Payment Integration (Fase 5) ---
+    mollie_api_key: str = Field(
+        "", description="Mollie API key (live or test) — get from Mollie dashboard"
+    )
+    mollie_webhook_secret: str = Field(
+        "", description="Mollie webhook secret for signature validation"
+    )
+
     # --- Berekende properties ---
     @property
     def is_production(self) -> bool:

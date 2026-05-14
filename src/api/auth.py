@@ -1,95 +1,214 @@
 """
-Authentication API — Magic Link Flow
+User authentication endpoints: register, login, logout, current_user
 """
-from fastapi import APIRouter, Depends, HTTPException, Header
+
+import logging
+from datetime import timedelta
+
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
 from src.core.config import settings
-from src.db.database import get_db
-from src.services.auth_service import (
-    request_magic_link, verify_magic_link, get_current_user,
-    APP_SECRET_KEY, JWT_ALGORITHM, JWT_TTL_DAYS,
+from src.core.security import (
+    create_access_token,
+    hash_password,
+    verify_access_token,
+    verify_password,
 )
-from src.models.orm_models import UserORM
+from src.db.database import get_db
+from src.db.models import User
 
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-# Request Models
-class RequestMagicLinkRequest(BaseModel):
+# ============================================================================
+# Request/Response Models
+# ============================================================================
+
+
+class RegisterRequest(BaseModel):
+    """Register new user with email and password."""
     email: EmailStr
+    password: str
+    name: str | None = None
 
 
-class VerifyMagicLinkRequest(BaseModel):
-    token: str
-
-
-# Response Models
-class MeResponse(BaseModel):
-    id: str
-    email: str
-
-    class Config:
-        from_attributes = True
+class LoginRequest(BaseModel):
+    """Login with email and password."""
+    email: EmailStr
+    password: str
 
 
 class TokenResponse(BaseModel):
+    """Access token response."""
     access_token: str
     token_type: str = "bearer"
 
 
-# Endpoints
-@router.post("/request-link", status_code=204)
-async def request_link(
-    req: RequestMagicLinkRequest,
+class UserResponse(BaseModel):
+    """User profile response."""
+    id: str
+    email: str
+    name: str | None
+    subscription_status: str
+    is_active: bool
+    
+    class Config:
+        from_attributes = True
+
+
+class CurrentUserResponse(UserResponse):
+    """Extended user info for /auth/me endpoint."""
+    pass
+
+
+# ============================================================================
+# Dependency: Get current authenticated user
+# ============================================================================
+
+
+async def get_current_user(
+    authorization: str | None = None,
     db: Session = Depends(get_db),
-):
-    """Request magic link for email"""
-    await request_magic_link(db, req.email)
-
-
-@router.post("/verify", response_model=TokenResponse)
-async def verify_link(
-    req: VerifyMagicLinkRequest,
-    db: Session = Depends(get_db),
-):
-    """Verify magic link and get JWT"""
-    user, token = await verify_magic_link(db, req.token)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-    return {"access_token": token, "token_type": "bearer"}
-
-
-@router.get("/me", response_model=MeResponse)
-async def get_me(
-    user: UserORM = Depends(get_current_user),
-):
-    """Get current user info"""
+) -> User:
+    """
+    Extract and validate JWT token from Authorization header.
+    Returns the User object or raises HTTPException 401.
+    
+    Usage:
+        @app.get("/protected")
+        async def protected(user: User = Depends(get_current_user)):
+            return {"user_id": user.id}
+    """
+    if not authorization:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing Authorization header",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # Extract token from "Bearer <token>"
+    parts = authorization.split()
+    if len(parts) != 2 or parts[0].lower() != "bearer":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Authorization header format",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    token = parts[1]
+    
+    try:
+        payload = verify_access_token(token)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(e),
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    user_id = payload.get("user_id")
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user or not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found or inactive",
+        )
+    
     return user
 
 
-@router.get("/dev-token", response_model=TokenResponse)
-def dev_token(db: Session = Depends(get_db)):
-    """Dev-only: geeft JWT terug voor dev@youcaps.ai — niet beschikbaar in productie."""
-    if not settings.is_development:
-        raise HTTPException(status_code=404, detail="Not found")
+# ============================================================================
+# Endpoints
+# ============================================================================
 
-    from datetime import datetime, timedelta, timezone
-    from jose import jwt as _jwt
 
-    user = db.query(UserORM).filter(UserORM.email == "dev@youcaps.ai").first()
-    if not user:
-        user = UserORM(email="dev@youcaps.ai", is_active=True, hashed_password="dev-placeholder")
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-
-    payload = {
-        "sub": user.id,
-        "email": user.email,
-        "exp": datetime.now(timezone.utc) + timedelta(days=JWT_TTL_DAYS),
-    }
-    token = _jwt.encode(payload, APP_SECRET_KEY, algorithm=JWT_ALGORITHM)
+@router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
+def register(
+    req: RegisterRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    Register new user account.
+    Returns JWT access token on success.
+    """
+    # Check if email already exists
+    existing = db.query(User).filter(User.email == req.email).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email already registered",
+        )
+    
+    # Hash password and create user
+    hashed_pwd = hash_password(req.password)
+    user = User(
+        email=req.email,
+        name=req.name,
+        hashed_password=hashed_pwd,
+        subscription_status="active",
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    
+    logger.info(f"User registered: {user.email} (id={user.id})")
+    
+    # Generate JWT token
+    token = create_access_token(user.id, user.email)
     return {"access_token": token, "token_type": "bearer"}
+
+
+@router.post("/login", response_model=TokenResponse)
+def login(
+    req: LoginRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    Login with email and password.
+    Returns JWT access token on success.
+    """
+    user = db.query(User).filter(User.email == req.email).first()
+    
+    if not user or not verify_password(req.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
+    
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Account is inactive",
+        )
+    
+    logger.info(f"User logged in: {user.email}")
+    
+    # Generate JWT token
+    token = create_access_token(user.id, user.email)
+    return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/me", response_model=CurrentUserResponse)
+def get_current_user_info(
+    user: User = Depends(get_current_user),
+):
+    """
+    Get current authenticated user profile.
+    Requires valid JWT token in Authorization header.
+    """
+    return user
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(user: User = Depends(get_current_user)):
+    """
+    Logout user (JWT is invalidated on client side).
+    In a production app, you might want to maintain a token blacklist.
+    """
+    logger.info(f"User logged out: {user.email}")
+    return None

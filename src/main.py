@@ -13,6 +13,7 @@ from src.api.auth import router as auth_router
 from src.api.scans import router as scans_router
 from src.api.onboarding import router as onboarding_router
 from src.api.oura import router as oura_router
+from src.api.payment import router as payment_router, webhook_router
 
 
 
@@ -25,17 +26,21 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle"""
     logger.info("Youcaps API starting...")
-    # Skip DB creation in Render (read-only filesystem) — use Supabase in production
-    # from src.db.database import create_tables
-    # create_tables()
+    # Initialize Supabase/database on startup
+    try:
+        from src.db.database import create_tables
+        create_tables()
+        logger.info("Database tables initialized")
+    except Exception as e:
+        logger.warning(f"Could not initialize database tables: {e}")
     yield
     logger.info("Youcaps API shutting down...")
 
 # Create FastAPI app
 app = FastAPI(
-    title="Youcaps API",
-    description="Gepersonaliseerde supplement-service",
-    version="0.2.0",
+    title="Sportset API",
+    description="Wearable data platform with Oura OAuth + Mollie payments",
+    version="1.0.0",
     lifespan=lifespan,
 )
 
@@ -54,6 +59,8 @@ app.include_router(scans_router)
 # Bij de andere include_router calls:
 app.include_router(onboarding_router)
 app.include_router(oura_router)
+app.include_router(payment_router)
+app.include_router(webhook_router)
 
 
 @app.get("/health")

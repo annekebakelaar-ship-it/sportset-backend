@@ -92,7 +92,8 @@ def create_tables() -> None:
 
     In productie: gebruik Alembic-migraties i.p.v. create_all().
     """
-    from src.models import orm_models, onboarding  # noqa: F401 — importeer zodat tabellen geregistreerd zijn   # noqa: F401 — importeer zodat tabellen geregistreerd zijn
+    from src.models import orm_models, onboarding  # noqa: F401 — importeer zodat tabellen geregistreerd zijn
+    from src.db.models import User, OuraToken, Subscription, Payment  # noqa: F401 — register Sportset models
     Base.metadata.create_all(bind=engine)
     logger.info("Database-tabellen aangemaakt (create_all).")
 
