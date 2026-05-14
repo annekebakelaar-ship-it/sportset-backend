@@ -25,16 +25,11 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle"""
-    logger.info("Youcaps API starting...")
-    # Initialize Supabase/database on startup
-    try:
-        from src.db.database import create_tables
-        create_tables()
-        logger.info("Database tables initialized")
-    except Exception as e:
-        logger.warning(f"Could not initialize database tables: {e}")
+    logger.info("Sportset API starting...")
+    # Database initialization skipped (requires Supabase env vars)
+    # Add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY to Render env to enable
     yield
-    logger.info("Youcaps API shutting down...")
+    logger.info("Sportset API shutting down...")
 
 # Create FastAPI app
 app = FastAPI(
